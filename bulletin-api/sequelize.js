@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
 const PostModel = require("./models/post");
+const CommentModel = require("./models/comment");
 
 // Use RDS when deploying
 const sequelize = new Sequelize(
@@ -22,6 +23,9 @@ sequelize
   });
 
 const Post = PostModel(sequelize, Sequelize);
+const Comment = CommentModel(sequelize, Sequelize);
+
+Comment.belongsTo(Post);
 
 module.exports = {
   Post
