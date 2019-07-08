@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const PostModel = require("./models/post");
 
-// Use RDS
+// Use RDS when deploying
 const sequelize = new Sequelize(
   "bulletin",
   process.env.DB_USER,
