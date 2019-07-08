@@ -8,26 +8,6 @@ const app = express();
 
 require("dotenv").config();
 
-// Use RDS
-const sequelize = new Sequelize(
-  "bulletin",
-  process.env.DB_USER,
-  process.env.DB_PASS,
-  {
-    host: process.env.DB_HOST,
-    dialect: "postgres"
-  }
-);
-
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log("Connection has been established successfully.");
-  })
-  .catch(err => {
-    console.error("Unable to connect to the database:", err);
-  });
-
 app.use(helmet());
 app.use(logger("dev"));
 app.use(bodyParser.json());

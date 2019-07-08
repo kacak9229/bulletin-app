@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const Post = require("../models/Post");
+const { Post } = require("../sequelize");
 
 // GET -> get all the posts from the database
 router.get("/posts", (req, res) => {
@@ -11,6 +11,7 @@ router.get("/posts", (req, res) => {
 // POST - create a post and store in a database
 router.post("/posts", async (req, res) => {
   // create a post
+  console.log(req.body);
   try {
     const post = await Post.create({
       title: req.body.title,
