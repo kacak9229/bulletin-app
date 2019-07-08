@@ -3,9 +3,19 @@ const router = require("express").Router();
 const { Post } = require("../sequelize");
 
 // GET -> get all the posts from the database
-router.get("/posts", (req, res) => {
-  // Get all the posts
-  res.json(200);
+router.get("/posts", async (req, res) => {
+  try {
+    const posts = await Post.findAll();
+    res.json({
+      success: true,
+      data: posts
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: err.message
+    });
+  }
 });
 
 // POST - create a post and store in a database
