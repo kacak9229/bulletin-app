@@ -1,25 +1,16 @@
-const Model = Sequelize.Model;
-
-class Post extends Model {}
-
-Post.init(
-  {
-    // Attributes of Post
+module.exports = (sequlize, DataTypes) => {
+  const Post = sequlize.define("Post", {
     title: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
       allowNull: false
     },
     content: {
-      type: Sequelize.STRING
+      type: DataTypes.STRING
     },
     picture: {
-      type: Sequelize.STRING
+      type: DataTypes.STRING
     }
-  },
-  {
-    sequelize,
-    modelName: "post"
-  }
-);
+  });
 
-module.export = Post;
+  return Post;
+};

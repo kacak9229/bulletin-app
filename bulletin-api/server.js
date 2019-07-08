@@ -1,12 +1,24 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const helmet = require("helmet");
+const logger = require("morgan");
 const Sequelize = require("sequelize");
 
 const app = express();
 
+require("dotenv").config();
+
 // Use RDS
-const sequelize = new Sequelize("postgres://alpha:@example.com:5432/dbname");
+const sequelize = new Sequelize(
+  "bulletin",
+  process.env.DB_USER,
+  process.env.DB_PASS,
+  {
+    host: process.env.DB_HOST,
+    dialect: "postgres"
+  }
+);
+
 sequelize
   .authenticate()
   .then(() => {
@@ -17,6 +29,7 @@ sequelize
   });
 
 app.use(helmet());
+app.use(logger("dev"));
 app.use(bodyParser.json());
 
 // API routes for all the APIS
@@ -28,6 +41,5 @@ app.listen(process.env.PORT, err => {
   if (err) {
     console.log(err);
   }
-
-  console.log(`connected to the port ${process.env.PORT}`);
+  console.log(`Connected to PORT ${process.env.PORT}`);
 });

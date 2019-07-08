@@ -1,10 +1,11 @@
 const router = require("express").Router();
 
-const Post = require("./models/Post");
+const Post = require("../models/Post");
 
 // GET -> get all the posts from the database
 router.get("/posts", (req, res) => {
   // Get all the posts
+  res.json(200);
 });
 
 // POST - create a post and store in a database
@@ -21,11 +22,11 @@ router.post("/posts", async (req, res) => {
       data: post
     });
   } catch (err) {
-    res.json({
+    res.status(500).json({
       success: false,
-      message: "Failed to create a post"
+      message: err.message
     });
   }
 });
 
-module.export = router;
+module.exports = router;
