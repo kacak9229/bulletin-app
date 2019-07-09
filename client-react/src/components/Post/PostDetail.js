@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Row, Col } from "antd";
 import routes from "../../constants/api";
+import CommentAdd from "../Comment/CommentAdd";
+import CommentList from "../Comment/CommentList";
 
 class PostDetail extends Component {
   constructor(props) {
@@ -31,6 +33,8 @@ class PostDetail extends Component {
 
             <h4>{content}</h4>
           </Col>
+          <CommentList />
+          <CommentAdd />
         </Row>
       </div>
     );
