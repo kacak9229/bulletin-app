@@ -44,9 +44,6 @@ router.get("/posts", async (req, res) => {
 
 // POST - create a post and store in a database
 router.post("/posts", upload.single("picture"), async (req, res) => {
-  // create a post
-  console.log(req.body);
-  console.log(req.file);
   try {
     const post = await Post.create({
       title: req.body.title,
