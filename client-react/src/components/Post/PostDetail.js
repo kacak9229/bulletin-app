@@ -33,8 +33,8 @@ class PostDetail extends Component {
 
             <h4>{content}</h4>
           </Col>
-          <CommentList />
-          <CommentAdd />
+          <CommentList paramsId={this.props.match.params.id} />
+          <CommentAdd paramsId={this.props.match.params.id} />
         </Row>
       </div>
     );

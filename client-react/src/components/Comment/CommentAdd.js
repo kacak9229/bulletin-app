@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Comment, Avatar, Form, Button, List, Input } from "antd";
 import moment from "moment";
+import routes from "../../constants/api";
 
 const { TextArea } = Input;
 
@@ -32,37 +33,53 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => (
 );
 
 class CommentAdd extends React.Component {
-  state = {
-    comments: [],
-    submitting: false,
-    value: ""
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      comments: [],
+      submitting: false,
+      value: ""
+    };
+  }
 
-  handleSubmit = () => {
-    if (!this.state.value) {
-      return;
-    }
+  handleSubmit = async () => {
+    console.log(this.props);
+    // if (!this.state.value) {
+    //   return;
+    // }
 
     this.setState({
       submitting: true
     });
 
-    setTimeout(() => {
-      this.setState({
-        submitting: false,
-        value: "",
-        comments: [
-          {
-            author: "Han Solo",
-            avatar:
-              "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-            content: <p>{this.state.value}</p>,
-            datetime: moment().fromNow()
-          },
-          ...this.state.comments
-        ]
-      });
-    }, 1000);
+    const data = [
+      {
+        author: "Han Solo",
+        avatar:
+          "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
+        content: this.state.value,
+        datetime: moment().fromNow()
+      },
+      ...this.state.comments
+    ];
+    const result = await routes.createAComment(this.props.paramsId, data);
+    console.log(result);
+    // setTimeout(() => {
+    //   this.setState({
+    //     submitting: false,
+    //     value: "",
+    //     comments: [
+    //       {
+    //         author: "Han Solo",
+    //         avatar:
+    //           "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
+    //         content: <p>{this.state.value}</p>,
+    //         datetime: moment().fromNow()
+    //       },
+    //       ...this.state.comments
+    //     ]
+    //   });
+    // }, 1000);
   };
 
   handleChange = e => {

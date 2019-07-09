@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Comment, Tooltip, List } from "antd";
 import moment from "moment";
+import routes from "../../constants/api";
 
 const data = [
   {
@@ -56,21 +57,49 @@ const data = [
 ];
 
 class CommentList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: []
+    };
+  }
+  async componentDidMount() {
+    const response = await routes.getComments(this.props.paramsId);
+    console.log("This is comments", response.data.data);
+    this.setState({
+      data: response.data.data
+    });
+  }
+
   render() {
     return (
       <List
         className="comment-list"
-        header={`${data.length} replies`}
+        header={`${this.state.data.length} replies`}
         itemLayout="horizontal"
-        dataSource={data}
+        dataSource={this.state.data}
         renderItem={item => (
           <li>
             <Comment
-              actions={item.actions}
-              author={item.author}
-              avatar={item.avatar}
-              content={item.content}
-              datetime={item.datetime}
+              actions={[<span>Reply to</span>]}
+              author={"Dragon King"}
+              avatar={
+                "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+              }
+              content={item.text}
+              datetime={
+                <Tooltip
+                  title={moment()
+                    .subtract(2, "days")
+                    .format("YYYY-MM-DD HH:mm:ss")}
+                >
+                  <span>
+                    {moment()
+                      .subtract(2, "days")
+                      .fromNow()}
+                  </span>
+                </Tooltip>
+              }
             />
           </li>
         )}

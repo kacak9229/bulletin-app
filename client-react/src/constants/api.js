@@ -35,9 +35,20 @@ async function createAPost(data) {
   }
 }
 
-async function createAComment(postID) {
+async function createAComment(postID, data) {
   try {
-    const result = await axios.post(`${API_ROOT}/posts/${postID}/comments`);
+    const result = await axios.post(`${API_ROOT}/posts/${postID}/comments`, {
+      text: data[0].content
+    });
+    return result;
+  } catch (err) {
+    return err;
+  }
+}
+
+async function getComments(postID) {
+  try {
+    const result = await axios.get(`${API_ROOT}/posts/${postID}/comments`);
     return result;
   } catch (err) {
     return err;
@@ -48,5 +59,7 @@ export default {
   API_ROOT,
   getAllPost,
   createAPost,
-  getAPost
+  getAPost,
+  createAComment,
+  getComments
 };
