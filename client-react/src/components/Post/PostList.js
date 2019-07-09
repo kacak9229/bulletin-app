@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Layout, Card, Row, Col } from "antd";
+import { Card, Row, Col, Icon, Avatar, Button } from "antd";
 import routes from "../../constants/api";
+import { Link } from "react-router-dom";
 
 class PostList extends Component {
   constructor() {
@@ -22,17 +23,25 @@ class PostList extends Component {
     const { Meta } = Card;
 
     this.state.posts = this.state.posts.map(post => (
-      <Col
-        key={post.id}
-        xs={{ span: 5, offset: 1 }}
-        lg={{ span: 6, offset: 2 }}
-      >
+      <Col key={post.id} xs={{ span: 5 }} lg={{ span: 6 }}>
         <Card
-          hoverable
-          style={{ width: 240 }}
-          cover={<img alt={post.title} src={post.picture} />}
+          style={{ width: 240, marginTop: 20 }}
+          cover={
+            <img alt={post.title} src={post.picture} style={{ height: 200 }} />
+          }
         >
-          <Meta title={post.title} description={post.content} />
+          <Meta
+            avatar={
+              <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+            }
+            title={post.title}
+            description={post.content}
+          />
+          <Button style={{ marginTop: 30 }} type="success">
+            <Link to={`/posts/${post.id}`} params={{ post_id: post.id }}>
+              Details
+            </Link>
+          </Button>
         </Card>
       </Col>
     ));
@@ -44,7 +53,7 @@ class PostList extends Component {
             <h1>List of the Posts</h1>
           </Col>
         </Row>
-        <Row>{this.state.posts}</Row>
+        <Row gutter={16}>{this.state.posts}</Row>
       </div>
     );
   }

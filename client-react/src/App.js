@@ -5,6 +5,7 @@ import { Layout } from "antd";
 
 import PostList from "./components/Post/PostList";
 import PostAdd from "./components/Post/PostAdd";
+import PostDetail from "./components/Post/PostDetail";
 import Nav from "./components/Navigation/Nav";
 
 class App extends Component {
@@ -21,7 +22,8 @@ class App extends Component {
             >
               <Switch>
                 <Route exact path="/" component={PostAdd} />
-                <Route path="/posts" component={PostList} />
+                <Route path="/posts" exact component={PostList} />
+                <Route path="/posts/:id" exact component={PostDetail} />
               </Switch>
             </div>
           </Content>

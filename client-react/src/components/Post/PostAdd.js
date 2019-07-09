@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { Form, Row, Col, Input, Upload, Icon, Button, message } from "antd";
 import routes from "../../constants/api";
+import { Redirect } from "react-router-dom";
 
 class PostAdd extends Component {
-  constructor() {
-    super();
+  constructor(props, context) {
+    super(props, context);
 
     this.state = {
       title: "",
@@ -48,9 +49,11 @@ class PostAdd extends Component {
     };
 
     const result = await routes.createAPost(data);
+    if (result.status === 200) {
+      this.props.history.push("/posts");
+    }
   }
   render() {
-    console.log(routes.API_ROOT);
     const props = {
       name: "picture",
       action: `${routes.API_ROOT}/upload`,
@@ -59,6 +62,10 @@ class PostAdd extends Component {
       }
     };
     const { TextArea } = Input;
+    // if (redirect) {
+    //   return <Redirect to="/posts" />;
+    // }
+
     return (
       <div>
         <Row>

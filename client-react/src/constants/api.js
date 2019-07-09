@@ -14,7 +14,7 @@ async function getAllPost() {
 
 async function getAPost(paramID) {
   try {
-    const result = await axios.get(`${API_ROOT}/posts`);
+    const result = await axios.get(`${API_ROOT}/posts/${paramID}`);
 
     return result;
   } catch (err) {
