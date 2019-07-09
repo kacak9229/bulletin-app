@@ -25,8 +25,14 @@ sequelize
 const Post = PostModel(sequelize, Sequelize);
 const Comment = CommentModel(sequelize, Sequelize);
 
+Post.hasMany(Comment);
 Comment.belongsTo(Post);
 
+// sequelize.sync({ force: true }).then(() => {
+//   console.log(`Database & tables created!`);
+// });
+
 module.exports = {
-  Post
+  Post,
+  Comment
 };
