@@ -43,12 +43,12 @@ router.get("/posts", async (req, res) => {
 });
 
 // POST - create a post and store in a database
-router.post("/posts", upload.single("picture"), async (req, res) => {
+router.post("/posts", async (req, res) => {
   try {
     const post = await Post.create({
       title: req.body.title,
       content: req.body.content,
-      picture: req.file.location
+      picture: req.body.picture
     });
     res.json({
       success: true,
@@ -116,6 +116,13 @@ router.get("/posts/:post_id/comments/", async (req, res) => {
       message: err.message
     });
   }
+});
+
+// Test the image upload
+router.post("/upload", upload.single("picture"), async (req, res) => {
+  console.log(req.file);
+
+  res.json(req.file);
 });
 
 module.exports = router;
