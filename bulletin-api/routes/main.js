@@ -1,6 +1,30 @@
 const router = require("express").Router();
+const aws = require("aws-sdk");
+const multer = require("multer");
+const multerS3 = require("multer-s3");
 
 const { Post, Comment } = require("../sequelize");
+
+aws.config.update({
+  secretAccessKey: process.env.AWS_SECRET_KEY,
+  accessKeyId: process.env.AWS_KEY_ID
+});
+
+const s3 = new aws.S3();
+
+const upload = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: process.env.AWS_BUCKET_NAME,
+    acl: "public-read",
+    metadata: (req, file, cb) => {
+      cb(null, { fieldName: file.fieldname });
+    },
+    key: (req, file, cb) => {
+      cb(null, Date.now().toString());
+    }
+  })
+});
 
 // GET -> get all the posts from the database
 router.get("/posts", async (req, res) => {
@@ -19,14 +43,15 @@ router.get("/posts", async (req, res) => {
 });
 
 // POST - create a post and store in a database
-router.post("/posts", async (req, res) => {
+router.post("/posts", upload.single("picture"), async (req, res) => {
   // create a post
   console.log(req.body);
+  console.log(req.file);
   try {
     const post = await Post.create({
       title: req.body.title,
       content: req.body.content,
-      picture: req.body.picture
+      picture: req.file.location
     });
     res.json({
       success: true,
