@@ -46,3 +46,4 @@ Steps to run the application locally
 ### What database is being used?
 
 1. PostgreSQL + Sequelize ORM for Node.js
+2. Using AWS RDS for production
