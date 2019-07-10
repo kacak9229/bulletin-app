@@ -1,7 +1,14 @@
 import React, { Component } from "react";
-import { Card, Row, Col, Icon, Avatar, Button } from "antd";
+import { List, Row, Col, Icon, Avatar } from "antd";
 import routes from "../../constants/api";
 import { Link } from "react-router-dom";
+
+const IconText = ({ type, text }) => (
+  <span>
+    <Icon type={type} style={{ marginRight: 8 }} />
+    {text}
+  </span>
+);
 
 class PostList extends Component {
   constructor() {
@@ -13,47 +20,58 @@ class PostList extends Component {
 
   async componentDidMount() {
     const response = await routes.getAllPost();
-    console.log("This is a response", response);
+
     this.setState({
       posts: response.data
     });
   }
 
   render() {
-    const { Meta } = Card;
-
-    this.state.posts = this.state.posts.map(post => (
-      <Col key={post.id} xs={{ span: 5 }} lg={{ span: 6 }}>
-        <Card
-          style={{ width: 240, marginTop: 20 }}
-          cover={
-            <img alt={post.title} src={post.picture} style={{ height: 200 }} />
-          }
-        >
-          <Meta
-            avatar={
-              <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-            }
-            title={post.title}
-            description={post.content}
-          />
-          <Button style={{ marginTop: 30 }} type="success">
-            <Link to={`/posts/${post.id}`} params={{ post_id: post.id }}>
-              Details
-            </Link>
-          </Button>
-        </Card>
-      </Col>
-    ));
-
     return (
       <div>
         <Row>
           <Col span={12} offset={6}>
-            <h1>List of the Posts</h1>
+            <h1 align="center">List of the Posts</h1>
           </Col>
         </Row>
-        <Row gutter={16}>{this.state.posts}</Row>
+        <Row>
+          <List
+            itemLayout="vertical"
+            size="large"
+            pagination={{
+              onChange: page => {
+                console.log(page);
+              },
+              pageSize: 3
+            }}
+            dataSource={this.state.posts}
+            footer={
+              <div>
+                <b>Socar x Bulletin Board</b>
+              </div>
+            }
+            renderItem={item => (
+              <List.Item
+                key={item.title}
+                actions={[
+                  <IconText type="star-o" text="156" />,
+                  <IconText type="like-o" text="156" />,
+                  <IconText type="message" text="2" />
+                ]}
+                extra={<img width={100} alt="logo" src={item.picture} />}
+              >
+                <List.Item.Meta
+                  avatar={
+                    <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                  }
+                  title={<Link to={`/posts/${item.id}`}>{item.title}</Link>}
+                  description={item.picture}
+                />
+                {item.content}
+              </List.Item>
+            )}
+          />
+        </Row>
       </div>
     );
   }
