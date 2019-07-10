@@ -1,3 +1,4 @@
+// Libraries to access the Library
 const Sequelize = require("sequelize");
 const PostModel = require("./models/post");
 const CommentModel = require("./models/comment");
@@ -25,12 +26,9 @@ sequelize
 const Post = PostModel(sequelize, Sequelize);
 const Comment = CommentModel(sequelize, Sequelize);
 
+// Create a relationship between Post and Comment
 Post.hasMany(Comment);
 Comment.belongsTo(Post);
-
-// sequelize.sync({ force: true }).then(() => {
-//   console.log(`Database & tables created!`);
-// });
 
 module.exports = {
   Post,

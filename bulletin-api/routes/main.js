@@ -119,10 +119,8 @@ router.get("/posts/:post_id/comments/", async (req, res) => {
   }
 });
 
-// Test the image upload
+// POST -> upload a picture to S3 bucket
 router.post("/upload", upload.single("picture"), async (req, res) => {
-  console.log(req.file);
-
   res.json(req.file);
 });
 

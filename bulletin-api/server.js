@@ -1,3 +1,4 @@
+// Libraries to run the API
 const express = require("express");
 const bodyParser = require("body-parser");
 const helmet = require("helmet");
@@ -6,15 +7,17 @@ const cors = require("cors");
 
 const app = express();
 
+// Getting the environment variables from .env
 require("dotenv").config();
 
+// Express Middlewares
 app.use(helmet());
 app.use(cors());
 app.use(logger("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// API routes for all the APIS
+// API routes
 const mainRoutes = require("./routes/main");
 app.use("/api", mainRoutes);
 

@@ -1,5 +1,6 @@
-module.exports = (sequlize, DataTypes) => {
-  const Post = sequlize.define("Post", {
+// Post Model - attributes(id, title, content, picture)
+module.exports = (sequelize, DataTypes) => {
+  const Post = sequelize.define("Post", {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
