@@ -2,10 +2,14 @@
 
 ### Tech Stack - Node.js + React + Redux + PostgreSQL + AWS S3 + Ant Design
 
-There are two folders one is bulletin-api and the other one is client-react
+##### There are two folders one is bulletin-api and the other one is client-react
 
 1. bulletin-api -> Node.js + Express + Sequelize
 2. client-react -> React + Redux using the create-react-app
+
+#### Production Link
+
+http://www.google.com
 
 Steps to run the application locally
 
@@ -24,13 +28,6 @@ Steps to run the application locally
 The api is running on port 3000 -> `http://localhost:3000`
 The client is running on port 300x -> `http://localhost:300x`
 
-### How does I store the pictures?
-
-1. AWS S3 bucket is being used
-2. User uploads an image
-3. S3 process it and return the URL
-4. The URL then will be stored in PostgreSQL using Sequelize.
-
 ### List of the APIS
 
 ```
@@ -42,3 +39,14 @@ The client is running on port 300x -> `http://localhost:300x`
     6. /api/upload - POST
 
 ```
+
+### How does I store the pictures?
+
+1. AWS S3 bucket is being used
+2. User uploads an image
+3. S3 process it and return the URL
+4. The URL then will be stored in PostgreSQL using Sequelize.
+
+### What database is being used?
+
+1. PostgreSQL + Sequelize ORM for Node.js
