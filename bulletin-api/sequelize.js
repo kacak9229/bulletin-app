@@ -5,11 +5,12 @@ const CommentModel = require("./models/comment");
 
 // Use RDS when deploying
 const sequelize = new Sequelize(
-  "bulletin",
+  process.env.DB_NAME,
   process.env.DB_USER,
   process.env.DB_PASS,
   {
     host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
     dialect: "postgres"
   }
 );

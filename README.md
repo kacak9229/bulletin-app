@@ -7,10 +7,6 @@
 1. bulletin-api -> Node.js + Express + Sequelize
 2. client-react -> React + Redux using the create-react-app
 
-#### Production Link
-
-http://www.google.com
-
 Steps to run the application locally
 
 #### 1. bulletin-api (Backend)
@@ -25,8 +21,8 @@ Steps to run the application locally
 2. `npm install`
 3. `npm start`
 
-The api is running on port 3000 -> `http://localhost:3000`
-The client is running on port 300x -> `http://localhost:300x`
+- The api is running on port 3000 -> `http://localhost:3000`
+- The client is running on port 300x -> `http://localhost:300x`
 
 ### List of the APIS
 
