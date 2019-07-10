@@ -1,16 +1,19 @@
 import React, { Component } from "react";
 import { Form, Row, Col, Input, Upload, Icon, Button, message } from "antd";
 import routes from "../../constants/api";
-import { Redirect } from "react-router-dom";
 
 class PostAdd extends Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
-      title: "",
-      content: "",
-      picture: null
+      title: null,
+      content: null,
+      picture: null,
+      errorTitle: {
+        status: "",
+        message: ""
+      }
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -49,8 +52,16 @@ class PostAdd extends Component {
     };
 
     const result = await routes.createAPost(data);
+    console.log(result);
     if (result.status === 200) {
       this.props.history.push("/posts");
+    } else {
+      this.setState({
+        errorTitle: {
+          status: "error",
+          message: "Title cannot be empty"
+        }
+      });
     }
   }
   render() {
@@ -72,8 +83,12 @@ class PostAdd extends Component {
           <Col span={12} offset={6}>
             <h1>Post something</h1>
             <Form onSubmit={this.handleSubmit}>
-              <Form.Item>
+              <Form.Item
+                validateStatus={this.state.errorTitle.status}
+                help={this.state.errorTitle.message}
+              >
                 <Input
+                  placeholder="Title"
                   name="title"
                   defaultValue={this.state.title}
                   onChange={this.handleInputChange}
@@ -81,6 +96,7 @@ class PostAdd extends Component {
               </Form.Item>
               <Form.Item>
                 <TextArea
+                  placeholder="Content ..."
                   name="content"
                   defaultValue={this.state.content}
                   onChange={this.handleInputChange}
