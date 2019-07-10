@@ -1,83 +1,25 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Comment, Tooltip, List } from "antd";
 import moment from "moment";
-import routes from "../../constants/api";
+import { fetchComments } from "../../actions/index";
 
-const data = [
-  {
-    actions: [<span>Reply to</span>],
-    author: "Han Solo",
-    avatar: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-    content: (
-      <p>
-        We supply a series of design principles, practical patterns and high
-        quality design resources (Sketch and Axure), to help people create their
-        product prototypes beautifully and efficiently.
-      </p>
-    ),
-    datetime: (
-      <Tooltip
-        title={moment()
-          .subtract(1, "days")
-          .format("YYYY-MM-DD HH:mm:ss")}
-      >
-        <span>
-          {moment()
-            .subtract(1, "days")
-            .fromNow()}
-        </span>
-      </Tooltip>
-    )
-  },
-  {
-    actions: [<span>Reply to</span>],
-    author: "Han Solo",
-    avatar: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-    content: (
-      <p>
-        We supply a series of design principles, practical patterns and high
-        quality design resources (Sketch and Axure), to help people create their
-        product prototypes beautifully and efficiently.
-      </p>
-    ),
-    datetime: (
-      <Tooltip
-        title={moment()
-          .subtract(2, "days")
-          .format("YYYY-MM-DD HH:mm:ss")}
-      >
-        <span>
-          {moment()
-            .subtract(2, "days")
-            .fromNow()}
-        </span>
-      </Tooltip>
-    )
-  }
-];
+const mapStateToProps = state => {
+  return { comments: state.comments };
+};
 
 class CommentList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: []
-    };
-  }
   async componentDidMount() {
-    const response = await routes.getComments(this.props.paramsId);
-    console.log("This is comments", response.data.data);
-    this.setState({
-      data: response.data.data
-    });
+    await this.props.dispatch(fetchComments(this.props.paramsId));
   }
 
   render() {
     return (
       <List
         className="comment-list"
-        header={`${this.state.data.length} replies`}
+        header={`${this.props.comments.length} replies`}
         itemLayout="horizontal"
-        dataSource={this.state.data}
+        dataSource={this.props.comments}
         renderItem={item => (
           <li>
             <Comment
@@ -108,4 +50,4 @@ class CommentList extends Component {
   }
 }
 
-export default CommentList;
+export default connect(mapStateToProps)(CommentList);

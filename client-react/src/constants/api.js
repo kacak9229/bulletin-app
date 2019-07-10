@@ -38,7 +38,7 @@ async function createAPost(data) {
 async function createAComment(postID, data) {
   try {
     const result = await axios.post(`${API_ROOT}/posts/${postID}/comments`, {
-      text: data[0].content
+      text: data[0].text
     });
     return result;
   } catch (err) {

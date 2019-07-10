@@ -1,9 +1,17 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Comment, Avatar, Form, Button, List, Input } from "antd";
 import moment from "moment";
 import routes from "../../constants/api";
+import { addComment } from "../../actions/index";
 
 const { TextArea } = Input;
+
+function mapDispatchToProps(dispatch) {
+  return {
+    addComment: comment => dispatch(addComment(comment))
+  };
+}
 
 const CommentList = ({ comments }) => (
   <List
@@ -43,11 +51,6 @@ class CommentAdd extends React.Component {
   }
 
   handleSubmit = async () => {
-    console.log(this.props);
-    // if (!this.state.value) {
-    //   return;
-    // }
-
     this.setState({
       submitting: true
     });
@@ -57,29 +60,18 @@ class CommentAdd extends React.Component {
         author: "Han Solo",
         avatar:
           "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-        content: this.state.value,
+        text: this.state.value,
         datetime: moment().fromNow()
-      },
-      ...this.state.comments
+      }
     ];
     const result = await routes.createAComment(this.props.paramsId, data);
-    console.log(result);
-    // setTimeout(() => {
-    //   this.setState({
-    //     submitting: false,
-    //     value: "",
-    //     comments: [
-    //       {
-    //         author: "Han Solo",
-    //         avatar:
-    //           "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-    //         content: <p>{this.state.value}</p>,
-    //         datetime: moment().fromNow()
-    //       },
-    //       ...this.state.comments
-    //     ]
-    //   });
-    // }, 1000);
+    setTimeout(() => {
+      this.props.addComment(data);
+      this.setState({
+        submitting: false,
+        value: ""
+      });
+    }, 1000);
   };
 
   handleChange = e => {
@@ -89,11 +81,10 @@ class CommentAdd extends React.Component {
   };
 
   render() {
-    const { comments, submitting, value } = this.state;
+    const { submitting, value } = this.state;
 
     return (
       <div>
-        {comments.length > 0 && <CommentList comments={comments} />}
         <Comment
           avatar={
             <Avatar
@@ -115,4 +106,7 @@ class CommentAdd extends React.Component {
   }
 }
 
-export default CommentAdd;
+export default connect(
+  null,
+  mapDispatchToProps
+)(CommentAdd);

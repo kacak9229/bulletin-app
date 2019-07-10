@@ -80,13 +80,13 @@ router.get("/posts/:post_id", async (req, res) => {
 
 // POST - create a comment that belongs to a post
 router.post("/posts/:post_id/comments", async (req, res) => {
-  console.log(req.body);
   try {
     const comment = await Comment.create({
       text: req.body.text
     });
     const post = await Post.findOne({ where: { id: req.params.post_id } });
     const result = await post.addComments(comment);
+
     res.json({
       success: true,
       data: result
