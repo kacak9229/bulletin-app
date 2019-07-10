@@ -4,21 +4,16 @@ import { Layout, Menu } from "antd";
 
 class Nav extends Component {
   render() {
-    const { Header, Content, Footer } = Layout;
+    const { Header } = Layout;
     return (
       <Header>
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          defaultSelectedKeys={["1"]}
-          style={{ lineHeight: "64px" }}
-        >
+        <Menu theme="dark" mode="horizontal" style={{ lineHeight: "64px" }}>
           <Menu.Item key="1">
             {" "}
-            <Link to="/">Bulletin Board</Link>
+            <Link to="/">Add a post</Link>
           </Menu.Item>
           <Menu.Item key="2">
-            <Link to="/posts">Posts</Link>
+            <Link to="/posts">All Posts</Link>
           </Menu.Item>
         </Menu>
       </Header>

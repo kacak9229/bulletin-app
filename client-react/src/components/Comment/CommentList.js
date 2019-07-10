@@ -24,7 +24,7 @@ class CommentList extends Component {
           <li>
             <Comment
               actions={[<span>Reply to</span>]}
-              author={"Dragon King"}
+              author={"Code Monkey"}
               avatar={
                 "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
               }

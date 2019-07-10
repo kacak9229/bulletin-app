@@ -9,11 +9,7 @@ class PostAdd extends Component {
     this.state = {
       title: null,
       content: null,
-      picture: null,
-      errorTitle: {
-        status: "",
-        message: ""
-      }
+      picture: null
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -54,14 +50,10 @@ class PostAdd extends Component {
     const result = await routes.createAPost(data);
     console.log(result);
     if (result.status === 200) {
+      message.success("Successfully added a new post");
       this.props.history.push("/posts");
     } else {
-      this.setState({
-        errorTitle: {
-          status: "error",
-          message: "Title cannot be empty"
-        }
-      });
+      message.error("Title, Content and picture cannot be empty");
     }
   }
   render() {
@@ -83,10 +75,7 @@ class PostAdd extends Component {
           <Col span={12} offset={6}>
             <h1>Post something</h1>
             <Form onSubmit={this.handleSubmit}>
-              <Form.Item
-                validateStatus={this.state.errorTitle.status}
-                help={this.state.errorTitle.message}
-              >
+              <Form.Item>
                 <Input
                   placeholder="Title"
                   name="title"

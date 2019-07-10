@@ -10,10 +10,12 @@ module.exports = (sequlize, DataTypes) => {
       allowNull: false
     },
     content: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: false
     },
     picture: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: false
     }
   });
 
