@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Comment, Avatar, Form, Button, List, Input } from "antd";
+import { Comment, Avatar, Form, Button, Input } from "antd";
 import moment from "moment";
 import routes from "../../constants/api";
 import { addComment } from "../../actions/index";
@@ -12,15 +12,6 @@ function mapDispatchToProps(dispatch) {
     addComment: comment => dispatch(addComment(comment))
   };
 }
-
-const CommentList = ({ comments }) => (
-  <List
-    dataSource={comments}
-    header={`${comments.length} ${comments.length > 1 ? "replies" : "reply"}`}
-    itemLayout="horizontal"
-    renderItem={props => <Comment {...props} />}
-  />
-);
 
 const Editor = ({ onChange, onSubmit, submitting, value }) => (
   <div>
@@ -40,7 +31,7 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => (
   </div>
 );
 
-class CommentAdd extends React.Component {
+class CommentAdd extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -57,14 +48,14 @@ class CommentAdd extends React.Component {
 
     const data = [
       {
-        author: "Han Solo",
+        author: "Code Monkey",
         avatar:
           "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
         text: this.state.value,
         datetime: moment().fromNow()
       }
     ];
-    const result = await routes.createAComment(this.props.paramsId, data);
+    await routes.createAComment(this.props.paramsId, data);
     setTimeout(() => {
       this.props.addComment(data);
       this.setState({
@@ -89,7 +80,7 @@ class CommentAdd extends React.Component {
           avatar={
             <Avatar
               src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-              alt="Han Solo"
+              alt="Code Monkey"
             />
           }
           content={

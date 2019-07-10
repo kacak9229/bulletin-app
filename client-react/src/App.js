@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Layout } from "antd";
 
 import PostList from "./components/Post/PostList";
@@ -18,7 +18,7 @@ class App extends Component {
           <Content style={{ padding: "0 50px" }}>
             <div
               className="content-body"
-              style={{ background: "#fff", padding: 24, minHeight: 500 }}
+              style={{ background: "#fff", padding: 24, minHeight: 700 }}
             >
               <Switch>
                 <Route exact path="/" component={PostAdd} />

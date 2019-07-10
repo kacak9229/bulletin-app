@@ -18,8 +18,6 @@ class PostDetail extends Component {
     this.setState({
       post: response.data.data
     });
-
-    console.log(this.state.post);
   }
   render() {
     const { Title, Paragraph } = Typography;
@@ -31,7 +29,11 @@ class PostDetail extends Component {
             <Title>
               {title}{" "}
               <span>
-                <img src={picture} style={{ width: 50, height: 50 }} />
+                <img
+                  alt={title}
+                  src={picture}
+                  style={{ width: 50, height: 50 }}
+                />
               </span>
             </Title>
             <Paragraph />
